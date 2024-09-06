@@ -1,0 +1,149 @@
+@import "../../responsive.scss";
+
+.homePage {
+  display: flex;
+  height: 100%;
+
+  .textContainer {
+    flex: 3;
+
+    .wrapper {
+      padding-right: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 50px;
+      height: 100%;
+
+      @include lg {
+        padding-right: 50px;
+      }
+
+      @include md {
+        padding: 0;
+      }
+
+      @include sm {
+        justify-content: flex-start;
+      }
+
+      .title {
+        font-size: 60px;
+
+        @include lg {
+          font-size: 48px;
+        }
+      }
+
+      .buttonContainer {
+        margin-top: 20px;
+
+        .animated-button {
+          background: linear-gradient(45deg, #ff6b6b, #ffcc00, #00bfff, #32cd32); /* Rainbow gradient */
+          width: 100%;
+          background-size: 400% 400%; /* Size for animation */
+          border: none;
+          border-radius: 5px;
+          color: white;
+          padding: 15px 30px;
+          font-size: 18px;
+          font-weight: bold;
+          cursor: pointer;
+          text-align: center;
+          display: inline-block;
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.3s ease;
+          animation: gradientAnimation 5s ease infinite;
+
+
+          &:hover {
+            transform: scale(1.05);
+          }
+
+          .button-text {
+            display: block;
+          }
+
+          .button-subtext {
+            display: block;
+            font-size: 14px;
+            margin-top: 5px;
+          }
+        }
+      }
+
+      .facilitatedSection {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+
+        @include sm {
+          justify-content: flex-start;
+          margin-top: 20px;
+        }
+
+        img {
+          width: 45px;
+          margin-right: 20px;
+          height: 45px;
+
+        }
+
+        h2 {
+          font-size: 24px;
+          color: #333;
+          font-weight: bold;
+          margin: 0;
+
+          @include lg {
+            font-size: 22px;
+          }
+
+          @include md {
+            font-size: 20px;
+          }
+
+          @include sm {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .imgContainer {
+    flex: 2;
+    background-color: #fcf5f3;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @include md {
+      display: none;
+    }
+
+    img {
+      width: 115%;
+      position: absolute;
+      right: 0;
+
+      @include lg {
+        width: 105%;
+      }
+    }
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

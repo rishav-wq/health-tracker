@@ -1,0 +1,112 @@
+.login {
+    height: 100vh;
+    background-color: rgb(240, 240, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .card {
+      display: flex;
+      width: 60%;
+      background-color: white;
+      border-radius: 10px;
+      min-height: 600px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  
+      .left {
+        flex: 1;
+        background: linear-gradient(rgba(30,50,150,0.6),rgba(30,50,150,0.6)), 
+                    url("https://images.pexels.com/photos/1587927/pexels-photo-1587927.jpeg?auto=compress&cs=tinysrgb&w=600") center;  
+        background-size: cover;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        justify-content: center;
+        gap: 20px;
+  
+        h1 {
+          font-size: 48px;
+          line-height: 1.2;
+          font-weight: 600;
+        }
+  
+        p {
+          font-size: 16px;
+          line-height: 1.5;
+        }
+  
+        span {
+          font-size: 16px;
+        }
+  
+        button {
+          width: 50%;
+          padding: 12px;
+          border: none;
+          background-color: white;
+          color: #303f9f;
+          font-weight: 600;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+  
+          &:hover {
+            background-color: #ececec;
+          }
+        }
+      }
+  
+      .right {
+        flex: 1;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+  
+        h1 {
+          font-size: 32px;
+          color: #303f9f;
+          font-weight: 600;
+        }
+  
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+  
+          input {
+            border: none;
+            border-bottom: 2px solid #d3d3d3;
+            padding: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+  
+            &:focus {
+              border-color: #303f9f;
+            }
+          }
+  
+          button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: #303f9f;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+  
+            &:hover {
+              background-color: #505fbb;
+            }
+          }
+        }
+      }
+    }
+  }
+  

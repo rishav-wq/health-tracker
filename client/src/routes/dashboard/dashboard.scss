@@ -1,0 +1,163 @@
+/* Dashboard container */
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Current Status Section */
+  .status-section {
+    margin-bottom: 30px;
+  
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+  
+    .status-cards {
+      display: flex;
+      gap: 20px;
+    }
+  
+    .status-card {
+      background-color: #f0f4f8;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      text-align: center;
+  
+      h3 {
+        font-size: 1.4rem;
+        color: #555;
+        margin-bottom: 10px;
+      }
+  
+      p {
+        font-size: 1.2rem;
+        color: #777;
+        margin-bottom: 10px;
+      }
+  
+      progress {
+        width: 100%;
+        height: 8px;
+        margin-top: 10px;
+        appearance: none;
+  
+        &::-webkit-progress-bar {
+          background-color: #ddd;
+          border-radius: 5px;
+        }
+  
+        &::-webkit-progress-value {
+          background-color: #3498db;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  
+  /* Institute Detail Section */
+  .institute-section {
+    margin-bottom: 30px;
+  
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+  
+    .institute-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+    }
+  
+    .institute-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  
+    .institute-details {
+      font-size: 1.2rem;
+      color: #666;
+  
+      h3 {
+        font-size: 1.6rem;
+        margin-bottom: 5px;
+        color: #333;
+      }
+  
+      p {
+        margin: 5px 0;
+      }
+    }
+  }
+  
+  /* Download Legal Documents Button */
+  .download-section {
+    text-align: center;
+    margin-bottom: 30px;
+  
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+  
+    .download-btn {
+      background-color: #3498db;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #2980b9;
+      }
+  
+      i {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  
+  /* Apply Now Button for Freshers */
+  .apply-section {
+    text-align: center;
+  
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+  
+    .apply-btn {
+      background-color: #e67e22;
+      color: white;
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: #d35400;
+      }
+    }
+  }
+  
