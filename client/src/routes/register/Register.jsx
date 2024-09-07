@@ -10,6 +10,7 @@ const Register = () => {
   const [isSAG, setIsSAG] = useState(false); // Checkbox state for SAG
   const navigate = useNavigate();
 
+  axios.defaults.withCredentials=true;
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('https://scholar-ship-api.vercel.app/register', { name, email, password, isSAG })
