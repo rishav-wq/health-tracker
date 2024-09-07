@@ -16,7 +16,7 @@ app.use(express.json());
 
 // CORS configuration
 app.use(cors({
-    origin: "https://scholar-ship-api.vercel.app", // Update with your React app URL
+    origin: "https://scholar-ship-client.vercel.app/", // Update with your React app URL
     credentials: true
 }));
 
