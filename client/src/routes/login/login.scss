@@ -109,4 +109,14 @@
       }
     }
   }
-  
+  .sag-button{
+      width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: #303f9f;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+  }

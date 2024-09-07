@@ -37,6 +37,11 @@ function Dashboard() {
                 <div className="stage">
                   <h4>Step 4: Final Approval</h4>
                   <p>Status: Pending 🔄</p>
+                  <progress value="20" max="100"></progress>
+                </div>
+                <div className="stage">
+                  <h4>Step 4: Payment Disbursement</h4>
+                  <p>Status: Pending 🔄</p>
                 </div>
               </div>
             )}
