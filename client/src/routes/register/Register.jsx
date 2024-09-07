@@ -10,6 +10,8 @@ const Register = () => {
   const [isSAG, setIsSAG] = useState(false); // Checkbox state for SAG
   const navigate = useNavigate();
 
+  axios.defaults.withCredentials=true;
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:3001/register', { name, email, password, isSAG })

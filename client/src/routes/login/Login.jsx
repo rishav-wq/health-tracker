@@ -12,6 +12,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+    axios.defaults.withCredentials=true;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
