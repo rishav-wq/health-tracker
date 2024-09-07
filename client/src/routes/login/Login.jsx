@@ -18,7 +18,7 @@ const Login = () => {
     setError('');
 
     try {
-      const result = await axios.post('http://localhost:3001/login', { email, password });
+      const result = await axios.post('https://scholar-ship-api.vercel.app/login', { email, password });
 
       if (result.data === "SUCCESS!!!") {
         dispatch({ type: "LOGIN_NORMAL", payload: { user: { email } } }); // Adjust as necessary

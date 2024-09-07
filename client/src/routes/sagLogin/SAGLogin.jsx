@@ -18,7 +18,7 @@ const SAGLogin = () => {
     setError('');
 
     try {
-      const result = await axios.post('http://localhost:3001/sag-login', { email, password });
+      const result = await axios.post('https://scholar-ship-api.vercel.app/sag-login', { email, password });
       
       console.log("API Response:", result.data); // Log the entire response
 
