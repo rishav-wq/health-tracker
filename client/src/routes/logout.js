@@ -7,7 +7,7 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:3001/logout', {
+        fetch('https://scholar-ship-api.vercel.app/logout', {
             method: "GET",
             headers: {
                 Accept: "application/json",
