@@ -14,7 +14,7 @@ const Register = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://scholar-ship-api.vercel.app//register', { name, email, password, isSAG })
+    axios.post('https://scholar-ship-api.vercel.app/register', { name, email, password, isSAG })
       .then(result => {
         console.log(result);
         navigate('/login'); // Redirect to login page after successful registration
