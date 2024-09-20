@@ -14,6 +14,8 @@ import Dashboard from "./routes/dashboard/Dashboard";
 import ApplyPage from "./routes/applyPage/ApplyPage";
 import SAGLogin from "./routes/sagLogin/SAGLogin";
 import SAGDashboard from "./routes/sagDashboard/SAGDashboard";
+import HealthRecordDetail from "./components/healthRecordDetail/HealthrecordDetail";
+import AddHealthRecord from "./components/addHealthRecord/AddHealthrecord";
 
 export const UserContext = createContext();
 
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
       { path: "/apply", element: <ApplyPage /> },
       { path: "/sag-login", element: <SAGLogin /> },
       { path: "/sag-dashboard", element: <SAGDashboard /> },
+      { path: "/health-records", element: <AddHealthRecord /> },
+      { path: "/health-records/:id", element: <HealthRecordDetail /> },
     ],
   },
 ]);

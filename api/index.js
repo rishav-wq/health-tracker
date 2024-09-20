@@ -6,7 +6,8 @@ const session = require("express-session");
 const multer = require("multer");
 const path = require("path");
 const bcrypt = require('bcrypt');
-const UserModel = require("./models/Schemas"); // Ensure this model is correctly defined
+const UserModel = require("./models/Schemas");
+const HealthRecordModel = require("./models/HealthRecord");
 
 dotenv.config();
 
@@ -16,13 +17,13 @@ app.use(express.json());
 
 // CORS configuration
 app.use(cors({
-    origin: "https://scholar-ship-client.vercel.app", // Update with your React app URL
+    origin: "http://localhost:5173", // Update with your React app URL
     credentials: true
 }));
 
 // Session configuration
 app.use(session({
-    secret: process.env.SECRET_KEY, // Replace with an actual secret key from environment variables
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false, httpOnly: true }   // Set secure: true in production with HTTPS
@@ -31,15 +32,16 @@ app.use(session({
 // Multer setup for file uploads
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Set your desired destination folder
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to file name
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
 const upload = multer({ storage: storage });
 
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -58,28 +60,27 @@ app.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new UserModel({ name, email, password: hashedPassword, isSAG });
         await newUser.save();
-        res.json("User registered successfully");
+        res.status(201).json({ message: "User registered successfully" });
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err.message });
     }
 });
+
 // Regular login route
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log(`Login attempt - Email: ${email}, Password: ${password}`); // Debug log
     try {
-        const user = await UserModel.findOne({ email: email, isSAG: false });
-        console.log('Found user:', user); // Debug log
-        if (user) {
-            const match = await bcrypt.compare(password, user.password);
-            if (match) {
-                req.session.userId = user._id; // Set session ID
-                res.json("SUCCESS!!!");
-            } else {
-                res.json("WRONG!!!");
-            }
+        const user = await UserModel.findOne({ email, isSAG: false });
+        if (!user) {
+            return res.status(404).json({ message: "User not registered" });
+        }
+
+        const match = await bcrypt.compare(password, user.password);
+        if (match) {
+            req.session.userId = user._id;
+            res.json({ message: "Login successful" });
         } else {
-            res.json("NOT REGISTERED USER!!");
+            res.status(401).json({ message: "Invalid password" });
         }
     } catch (err) {
         res.status(500).json({ message: "Internal server error", error: err.message });
@@ -87,18 +88,15 @@ app.post('/login', async (req, res) => {
 });
 
 // SAG login route
-// Example backend response handling
 app.post('/sag-login', (req, res) => {
     const { email, password } = req.body;
-  
-    // Authenticate user
     if (authenticateUser(email, password)) {
-      res.json({ status: 'SUCCESS', user: { name: 'SAG User' } });
+        res.json({ status: 'SUCCESS', user: { name: 'SAG User' } });
     } else {
-      res.json({ status: 'ERROR', message: 'Invalid credentials' });
+        res.status(401).json({ status: 'ERROR', message: 'Invalid credentials' });
     }
-  });
-  
+});
+
 // Upload documents route
 app.post('/upload-documents', upload.fields([
     { name: 'tenthMarksheet', maxCount: 1 },
@@ -106,7 +104,7 @@ app.post('/upload-documents', upload.fields([
     { name: 'aadharCard', maxCount: 1 }
 ]), async (req, res) => {
     try {
-        const userId = req.session.userId; // Get user ID from session
+        const userId = req.session.userId;
         if (!userId) {
             return res.status(401).json({ message: 'User not authenticated' });
         }
@@ -122,7 +120,6 @@ app.post('/upload-documents', upload.fields([
             aadharCard: req.files['aadharCard'] ? req.files['aadharCard'][0].path : user.documents.aadharCard,
         };
 
-        // Update the user's documents field
         user.documents = documentPaths;
         await user.save();
 
@@ -134,29 +131,90 @@ app.post('/upload-documents', upload.fields([
 
 // Fetch students data route (for SAG users)
 app.get('/students', (req, res) => {
-    // Ensure SAG user is authenticated
     if (!req.session.userId) {
         return res.status(401).json({ message: 'User not authenticated' });
     }
 
-    UserModel.find({ isSAG: false }) // Fetch student data
-        .then(students => {
-            res.json(students);
-        })
+    UserModel.find({ isSAG: false })
+        .then(students => res.json(students))
         .catch(err => res.status(500).json({ message: "Internal server error", error: err.message }));
 });
 
 // Logout route
 app.get('/logout', (req, res) => {
     if (req.session) {
-        req.session.destroy((err) => { // Destroy session
+        req.session.destroy(err => {
             if (err) {
-                return res.status(500).json({ error: 'Failed to log out' });
+                return res.status(500).json({ message: 'Failed to log out' });
             }
-            res.json({ message: "Logout successful", redirect: "/login" }); // Send JSON response
+            res.json({ message: "Logout successful" });
         });
     } else {
-        res.json({ message: "Logout successful", redirect: "/login" }); // If no session
+        res.json({ message: "Logout successful" });
+    }
+});
+
+// Health Records API Endpoints
+
+// Create a new health record
+app.post('/health-records', async (req, res) => {
+    const { date, bodyTemperature, bloodPressure, heartRate } = req.body;
+    
+    // Validate health record input
+    if (!date || !bodyTemperature || !bloodPressure || !heartRate) {
+        return res.status(400).json({ message: "All fields are required." });
+    }
+    
+    try {
+        const newHealthRecord = new HealthRecordModel({ date, bodyTemperature, bloodPressure, heartRate });
+        await newHealthRecord.save();
+        res.status(201).json(newHealthRecord);
+    } catch (err) {
+        console.error('Error saving health record:', err);
+        res.status(500).json({ message: "Internal server error", error: err.message });
+    }
+});
+
+// Retrieve a list of all health records
+app.get('/health-records', async (req, res) => {
+    try {
+        const records = await HealthRecordModel.find();
+        res.json(records);
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error", error: err.message });
+    }
+});
+
+// Retrieve a specific health record by its ID
+app.get('/health-records/:id', async (req, res) => {
+    try {
+        const record = await HealthRecordModel.findById(req.params.id);
+        if (!record) return res.status(404).json({ message: "Record not found" });
+        res.json(record);
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error", error: err.message });
+    }
+});
+
+// Update a health record
+app.put('/health-records/:id', async (req, res) => {
+    try {
+        const updatedRecord = await HealthRecordModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedRecord) return res.status(404).json({ message: "Record not found" });
+        res.json(updatedRecord);
+    } catch (err) {
+        res.status(400).json({ message: "Invalid data", error: err.message });
+    }
+});
+
+// Delete a health record
+app.delete('/health-records/:id', async (req, res) => {
+    try {
+        const deletedRecord = await HealthRecordModel.findByIdAndDelete(req.params.id);
+        if (!deletedRecord) return res.status(404).json({ message: "Record not found" });
+        res.json({ message: "Record deleted" });
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error", error: err.message });
     }
 });
 

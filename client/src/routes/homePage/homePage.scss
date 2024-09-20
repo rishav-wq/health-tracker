@@ -115,7 +115,7 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background-color: #b8e2f4;
     position: relative;
     display: flex;
     align-items: center;
@@ -128,6 +128,7 @@
       width: 115%;
       position: absolute;
       right: 0;
+      height: 800px;
 
       @include lg {
         width: 105%;

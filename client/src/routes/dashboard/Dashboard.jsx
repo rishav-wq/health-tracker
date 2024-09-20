@@ -3,87 +3,83 @@ import { Link } from "react-router-dom";
 import "./dashboard.scss";
 
 function Dashboard() {
-  const [showVerificationStages, setShowVerificationStages] = useState(false);
+  const [showHealthData, setShowHealthData] = useState(false);
+  const healthRecords = [
+    { id: 1, date: "September 20, 2024", bodyTemperature: "98.6°F", bloodPressure: "120/80 mmHg", heartRate: "72 bpm" },
+    { id: 2, date: "September 19, 2024", bodyTemperature: "98.7°F", bloodPressure: "118/76 mmHg", heartRate: "75 bpm" },
+    { id: 3, date: "September 18, 2024", bodyTemperature: "99.1°F", bloodPressure: "115/75 mmHg", heartRate: "70 bpm" },
+  ];
 
-  const handleStatusClick = () => {
-    setShowVerificationStages(!showVerificationStages);
+  const handleHealthDataClick = () => {
+    setShowHealthData(!showHealthData);
   };
 
   return (
     <div className="dashboard">
-      {/* Status Section */}
-      <section className="status-section">
-        <h2>Current Status</h2>
-        <div className="status-cards">
-          <div className="status-card" onClick={handleStatusClick}>
-            <h3>Application Status</h3>
-            <p>In Progress</p>
-            <progress value="70" max="100"></progress>
-            {showVerificationStages && (
-              <div className="verification-stages">
-                <div className="stage">
-                  <h4>Step 1: Document Submission</h4>
-                  <p>Status: Completed ✅</p>
-                </div>
-                <div className="stage">
-                  <h4>Step 2: Initial Screening</h4>
-                  <p>Status: In Progress ⏳</p>
-                  <progress value="50" max="100"></progress>
-                </div>
-                <div className="stage">
-                  <h4>Step 3: Institute Verification</h4>
-                  <p>Status: Pending 🔄</p>
-                </div>
-                <div className="stage">
-                  <h4>Step 4: Final Approval</h4>
-                  <p>Status: Pending 🔄</p>
-                  <progress value="20" max="100"></progress>
-                </div>
-                <div className="stage">
-                  <h4>Step 4: Payment Disbursement</h4>
-                  <p>Status: Pending 🔄</p>
-                </div>
+      {/* Health Metrics Section */}
+      <section className="health-metrics-section">
+        <h2>Health Metrics</h2>
+        <div className="health-metrics-cards">
+          <div className="health-metric-card" onClick={handleHealthDataClick}>
+            <h3>Latest Health Record</h3>
+            <p>Date: September 20, 2024</p>
+            <p>Body Temperature: 98.6°F</p>
+            <p>Blood Pressure: 120/80 mmHg</p>
+            <p>Heart Rate: 72 bpm</p>
+            {showHealthData && (
+              <div className="health-data-details">
+                <h4>Health Data History</h4>
+                {healthRecords.map(record => (
+                  <div key={record.id} className="data-entry">
+                    <Link to={`/health-records/${record.id}`}> {/* Link to Health Record Detail */}
+                      <h5>Entry on {record.date}</h5>
+                    </Link>
+                    <p>Body Temperature: {record.bodyTemperature}</p>
+                    <p>Blood Pressure: {record.bloodPressure}</p>
+                    <p>Heart Rate: {record.heartRate}</p>
+                  </div>
+                ))}
               </div>
             )}
           </div>
 
-          <div className="status-card">
-            <h3>Verification Status</h3>
-            <p>Pending</p>
+          <div className="health-metric-card">
+            <h3>Overall Health Status</h3>
+            <p>Good</p>
           </div>
         </div>
       </section>
 
-      {/* Institute Details Section */}
-      <section className="institute-section">
-        <h2>Institute Details</h2>
-        <div className="institute-info">
+      {/* User Details Section */}
+      <section className="user-details-section">
+        <h2>Your Profile</h2>
+        <div className="user-info">
           <img
-            src="https://media.istockphoto.com/id/517235492/photo/cambridge-university-top-view.jpg?b=1&s=612x612&w=0&k=20&c=JhuhT2Oh5Uis1oZH7lbnQCt4ZLiMp5e_vKv4Bd0HeJg="
-            alt="Institute Logo"
-            className="institute-logo"
+            src="https://via.placeholder.com/150"
+            alt="User Profile"
+            className="user-profile-pic"
           />
-          <div className="institute-details">
-            <h3>ABC Institute of Technology</h3>
-            <p>Address: 123 Main St, City, State, ZIP</p>
+          <div className="user-details">
+            <h3>John Doe</h3>
+            <p>Email: johndoe@example.com</p>
             <p>Contact: +123 456 7890</p>
           </div>
         </div>
       </section>
 
-      {/* Documents Section */}
+      {/* Download Section */}
       <section className="download-section">
-        <h2>Documents</h2>
+        <h2>Download Your Health Records</h2>
         <button className="download-btn">
-          <i className="fas fa-download"></i> Download Legal Documents
+          <i className="fas fa-download"></i> Download Records
         </button>
       </section>
 
-      {/* Apply Section */}
-      <section className="apply-section">
-        <h2>Are You a Fresher?</h2>
-        <Link to="/apply">
-          <button className="apply-btn">Apply Now</button>
+      {/* Add New Record Section */}
+      <section className="add-record-section">
+        <h2>Want to Add a New Health Record?</h2>
+        <Link to="/health-records">
+          <button className="add-record-btn">Add Record</button>
         </Link>
       </section>
     </div>

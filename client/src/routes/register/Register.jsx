@@ -10,11 +10,11 @@ const Register = () => {
   const [isSAG, setIsSAG] = useState(false); // Checkbox state for SAG
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials=true;
+  axios.defaults.withCredentials = true;
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://scholar-ship-api.vercel.app/register', { name, email, password, isSAG })
+    axios.post('http://localhost:3001/register', { name, email, password, isSAG })
       .then(result => {
         console.log(result);
         navigate('/login'); // Redirect to login page after successful registration
@@ -26,35 +26,35 @@ const Register = () => {
     <div className='register'>
       <div className="card">
         <div className="left">
-          <h1 style={{ color: "white" }}>PMSS Scholarship Portal</h1>
+          <h1 style={{ color: "white" }}>Welcome to Health Tracking App</h1>
           <p>
-            Welcome to the PMSS Scholarship Portal! Here, you can easily register for a seamless scholarship application process. Join us and access various opportunities designed to support your educational journey.
+            Join our Health Tracking App to effortlessly monitor your daily health metrics, including body temperature, blood pressure, and heart rate. Take control of your health and wellness journey today!
           </p>
-          <span>Already have an account?</span>
+          <span>Already registered?</span>
           <Link to="/login">
             <button>Login</button>
           </Link>
         </div>
         <div className="right">
-          <h1>Register</h1>
+          <h1>Create Account</h1>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
-              placeholder='Username'
+              placeholder='Full Name'
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
             <input
               type="email"
-              placeholder='Email'
+              placeholder='Email Address'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
             <input
               type="password"
-              placeholder='Password'
+              placeholder='Create Password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -65,7 +65,7 @@ const Register = () => {
                 checked={isSAG}
                 onChange={(e) => setIsSAG(e.target.checked)}
               />
-              SAG User
+              Sign me up as a SAG User
             </label>
             <button type="submit">Register</button>
           </form>

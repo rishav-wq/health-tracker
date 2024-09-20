@@ -12,27 +12,27 @@ function HomePage() {
     <div className="homePage">
       <div className="textContainer">
         <div className="wrapper">
-          <h1 className="title">Transforming Scholarship Disbursement – Efficient, Secure, and Paperless!</h1>
+          <h1 className="title">Track Your Health – Simple, Intuitive, and Efficient!</h1>
           <p>
-            Welcome to the PMSS Paperless Scholarship Disbursement System. Our platform is designed to streamline the scholarship application process, making it easier than ever for students to apply, get verified, and receive funds without any physical paperwork. Experience a seamless, secure, and faster way to manage your scholarship, allowing you to focus on what matters most – your academic journey.
+            Welcome to the Health Tracking App. Our platform is designed to help you log and monitor your daily health metrics, including body temperature, blood pressure, and heart rate. Experience an easy and effective way to stay on top of your health, enabling you to focus on what truly matters – your well-being.
           </p>
           <div className="buttonContainer">
             <button onClick={handleButtonClick} className="animated-button">
-              <span className="button-text">🌟 New Scholarship Applications Now Open! 🌟</span>
-              <span className="button-subtext">Click Here to Apply</span>
+              <span className="button-text">📊 Start Tracking Your Health Today! 📊</span>
+              <span className="button-subtext">Click Here to Access Your Dashboard</span>
             </button>
           </div>
 
-          {/* New Section: Facilitated by AICTE */}
+          {/* New Section: Empowering Your Health Journey */}
           <div className="facilitatedSection">
-            <img src="/aictc logo.jpg" alt="AICTE Logo" className="logo" />
-            <h2>Facilitated by AICTE</h2>
+            <img src="/health-logo.png" alt="Health Logo" className="logo" />
+            <h2>Empowering Your Health Journey</h2>
           </div>
 
         </div>
       </div>
       <div className="imgContainer">
-        <img src="/bg1.png" alt="Scholarship Background" />
+        <img src="/bg2.png" alt="Health Tracking Background" />
       </div>
     </div>
   );

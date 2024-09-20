@@ -7,14 +7,6 @@ export const listData = [
     latitude: 51.5074,
     longitude: -0.1278,
   },
-  {
-    id: 2,
-    title: "AICTE Head Office",
-    img: "https://tse3.mm.bing.net/th?id=OIP.81aGtPwjTly46OvnW9ETbgHaFS&pid=Api&P=0&h=220",
-    address: "Nelson Mandela Marg, Vasant Kunj, New Delhi-110070",
-    latitude: 53.5074,
-    longitude: -0.1288,
-  },
 ];
 
 export const userData = {

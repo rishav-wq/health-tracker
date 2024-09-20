@@ -12,22 +12,32 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-    axios.defaults.withCredentials=true;
+  axios.defaults.withCredentials = true;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const result = await axios.post('https://scholar-ship-api.vercel.app/login', { email, password });
+      const result = await axios.post('http://localhost:3001/login', { email, password });
+      console.log('Result Data:', result.data); // Debugging response
 
-      if (result.data === "SUCCESS!!!") {
-        dispatch({ type: "LOGIN_NORMAL", payload: { user: { email } } }); // Adjust as necessary
+      // Check if login is successful by looking for a success message
+      if (result.data && result.data.message === "Login successful") {
+        console.log("Login successful, navigating to home...");
+        dispatch({ type: "LOGIN_NORMAL", payload: { user: { email } } });
         navigate('/'); // Redirect to home page
       } else {
-        setError(result.data); // Show error message
+        // Handle error message
+        if (typeof result.data === 'object' && result.data !== null && 'message' in result.data) {
+          setError(result.data.message);
+        } else {
+          setError('Login failed. Please try again.');
+        }
       }
     } catch (err) {
+      console.error('Login error:', err); // Log error for debugging
       setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -42,21 +52,21 @@ const Login = () => {
     <div className='login'>
       <div className="card">
         <div className="left">
-          <h1 style={{ color: "white" }}>PMSS Scholarship Portal</h1>
+          <h1 style={{ color: "white" }}>Health Tracking App</h1>
           <p>
-            Welcome to the PMSS Scholarship Portal, your gateway to a seamless and paperless scholarship application process. Log in to manage your scholarship information, view application status, and stay updated on all important notifications. Our goal is to help you succeed by making the scholarship application process as simple as possible.
+            Welcome to the Health Tracking App, your personal hub for monitoring and managing your health metrics. Log in to access your health records, track your progress, and stay informed about your health. We're here to support your wellness journey!
           </p>
-          <span>Don't have an account?</span>
+          <span>New here?</span>
           <Link to="/register">
-            <button>Register</button>
+            <button>Register Now</button>
           </Link>
         </div>
         <div className="right">
-          <h1>Login to PMSS</h1>
+          <h1>Login to Your Account</h1>
           <form onSubmit={handleSubmit}>
             <input
               type="email"
-              placeholder='Enter your email'
+              placeholder='Enter your email address'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -73,7 +83,7 @@ const Login = () => {
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-          <button onClick={handleSAGLogin} className='sag-button'>SAG Login</button>
+          <button onClick={handleSAGLogin} className='sag-button'>SAG User Login</button>
         </div>
       </div>
     </div>

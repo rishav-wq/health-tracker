@@ -56,7 +56,7 @@ function Navbar() {
       <div className="left">
         <Link to="/" className="logo">
           <img src="/logo.png" alt="Logo" />
-          <span>Future Ready</span>
+          <span>Healthify</span>
         </Link>
         <RenderNavLinks />
       </div>

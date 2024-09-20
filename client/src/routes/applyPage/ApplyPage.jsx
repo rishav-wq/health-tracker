@@ -41,7 +41,7 @@ function ApplyPage() {
     data.append("aadharCard", formData.documents.aadharCard);
 
     try {
-      const response = await fetch("https://scholar-ship-api.vercel.app/upload-documents", {
+      const response = await fetch("http://localhost:5173/upload-documents", {
         method: "POST",
         body: data,
         credentials: "include", // Ensures cookies are sent with the request
