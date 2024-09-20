@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './AddHealthRecord.scss';
+import './addHealthRecord.scss';
 
 const AddHealthRecord = ({ onRecordAdded }) => {
   const [newRecord, setNewRecord] = useState({
