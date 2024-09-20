@@ -5,7 +5,7 @@ function HomePage() {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/dashboard'); // Redirect to the dashboard
+    navigate('/'); // Redirect to the dashboard
   };
 
   return (
@@ -19,7 +19,7 @@ function HomePage() {
           <div className="buttonContainer">
             <button onClick={handleButtonClick} className="animated-button">
               <span className="button-text">📊 Start Tracking Your Health Today! 📊</span>
-              <span className="button-subtext">Click Here to Access Your Dashboard</span>
+              <span className="button-subtext">Go And Access Your Dashboard Now</span>
             </button>
           </div>
 
