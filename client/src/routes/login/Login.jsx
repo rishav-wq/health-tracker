@@ -20,7 +20,7 @@ const Login = () => {
     setError('');
 
     try {
-      const result = await axios.post('http://localhost:3001/login', { email, password });
+      const result = await axios.post('https://health-tracker-mauve.vercel.app/login', { email, password });
       console.log('Result Data:', result.data); // Debugging response
 
       // Check if login is successful by looking for a success message
