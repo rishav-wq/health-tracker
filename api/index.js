@@ -16,10 +16,23 @@ const app = express();
 app.use(express.json());
 
 // CORS configuration
+const allowedOrigins = [
+    'http://localhost:5173',  // Local development
+    'https://health-tracker-vegi.vercel.app', // Deployed frontend
+    'https://health-tracker-mauve.vercel.app' // Another possible frontend
+];
+
 app.use(cors({
-    origin: "https://health-tracker-vegi.vercel.app", // Update with your React app URL
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
+
 
 // Session configuration
 app.use(session({
