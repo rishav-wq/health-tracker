@@ -35,7 +35,7 @@ const AddHealthRecord = ({ onRecordAdded }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/health-records', recordData);
+      const response = await axios.post('https://health-tracker-mauve.vercel.app/health-records', recordData);
       alert("Health record added successfully!");
 
       // Call the onRecordAdded function with the new record
